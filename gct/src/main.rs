@@ -3,9 +3,9 @@ mod gct;
 
 use gct::{ Envelope, EnvelopeMode, Grain, GrainParams, GrainSettings, ParamRange, ReverseMode, Table, TableMode };
 use std::borrow::Borrow;
-use std::{fs::File, time::Duration};
+use std::{ fs::File, time::Duration };
 use rand::Rng;
-use qubx::{Qubx, StreamParameters};
+use qubx::{ Qubx, StreamParameters };
 use std::rc::Rc;
 use std::cell::RefCell;
 use std::sync::{ Arc, Mutex };

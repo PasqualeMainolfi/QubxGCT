@@ -1,4 +1,5 @@
 #![allow(dead_code, unused_imports)]
+
 mod gct;
 
 use gct::{ Envelope, EnvelopeMode, Grain, GrainParams, GrainSettings, ParamRange, ReverseMode, Table, TableMode };
@@ -26,7 +27,7 @@ fn open_file(path: &str) -> Vec<f32> {
     samples
 }
 
-const CHUNK: u32 = 2048;
+const CHUNK: u32 = 4096;
 const SR: i32 = 44100;
 
 const FILES: [&str; 2] = [
@@ -34,7 +35,8 @@ const FILES: [&str; 2] = [
     "./../audio_files_for_test/suzanne_mono.wav"
     ];
     
-const MODE: GranulatorMode = GranulatorMode::Sound;
+const MODE: GranulatorMode = GranulatorMode::Microphone;
+
 fn main() {
 
     let mut qubx = Qubx::new(true);

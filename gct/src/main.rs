@@ -34,7 +34,7 @@ const FILES: [&str; 2] = [
     "./../audio_files_for_test/suzanne_mono.wav",
 ];
 
-const MODE: GranulatorMode = GranulatorMode::Microphone;
+const MODE: GranulatorMode = GranulatorMode::Synthetic;
 
 fn main() {
     let mut qubx = Qubx::new(true);

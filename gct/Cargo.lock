@@ -131,8 +131,6 @@ version = "0.1.0"
 dependencies = [
  "concurrent-queue",
  "portaudio",
- "rand",
- "wav_io",
 ]
 
 [[package]]

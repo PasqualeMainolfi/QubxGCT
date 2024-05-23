@@ -37,7 +37,7 @@ const FILES: [&str; 2] = [
 const MODE: GranulatorMode = GranulatorMode::Synthetic;
 
 fn main() {
-    let mut qubx = Qubx::new(true);
+    let mut qubx = Qubx::new(false);
     qubx.start_monitoring_active_processes();
 
     let qparams: StreamParameters = StreamParameters {
@@ -71,7 +71,7 @@ fn main() {
         GranulatorMode::Sound => {
             let master_out = qubx.create_master_streamout(String::from("MASTER"), qparams.clone());
             master_out.start(|_frame: &mut [f32]| {});
-            let dsp_process = qubx.create_parallel_dsp_process(String::from("MASTER"));
+            let dsp_process = qubx.create_parallel_dsp_process(String::from("MASTER"), false);
 
             let audio1 = open_file(FILES[0]);
             let audio2 = open_file(FILES[1]);
@@ -94,7 +94,7 @@ fn main() {
                     grain_params.rev,
                 );
 
-                dsp_process.start(g, |_frame: &mut [f32]| {});
+                dsp_process.start(g, |_frame| { _frame.to_vec()});
 
                 let delay = grain_params.delay;
                 std::thread::sleep(Duration::from_secs_f32(delay));
@@ -111,7 +111,7 @@ fn main() {
         GranulatorMode::Synthetic => {
             let master_out = qubx.create_master_streamout(String::from("MASTER"), qparams.clone());
             master_out.start(|_frame: &mut [f32]| {});
-            let dsp_process = qubx.create_parallel_dsp_process(String::from("MASTER"));
+            let dsp_process = qubx.create_parallel_dsp_process(String::from("MASTER"), false);
 
             grain_settings.freq_range = ParamRange {
                 min: 70.0,
@@ -132,7 +132,7 @@ fn main() {
                 );
                 let g = grain.generate_synthetic_grain(&wave_table, grain_params.freq, SR);
 
-                dsp_process.start(g, |_frame: &mut [f32]| {});
+                dsp_process.start(g, |_frame| {_frame.to_vec()});
 
                 let delay = grain_params.delay;
                 std::thread::sleep(Duration::from_secs_f32(delay));
